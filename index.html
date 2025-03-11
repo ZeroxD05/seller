@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebExpert - Professionelle Webentwicklung</title>
+    <style>
+      :root {
+        --primary-color: #3a6ea5;
+        --secondary-color: #0c3b64;
+        --accent-color: #f39c12;
+        --light-color: #f5f7fa;
+        --dark-color: #2c3e50;
+        --text-color: #333;
+        --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-main);
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--light-color);
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo span {
+        color: var(--accent-color);
+      }
+
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 2rem;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: var(--accent-color);
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: var(--accent-color);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #e67e22;
+      }
+
+      /* Services Section */
+      .services {
+        padding: 4rem 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+        color: var(--secondary-color);
+        position: relative;
+        display: inline-block;
+        padding-bottom: 0.5rem;
+      }
+
+      .section-title h2::after {
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 3px;
+        background-color: var(--accent-color);
+        bottom: 0;
+        left: 25%;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .service-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-align: center;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .service-icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+
+      .service-card h3 {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+      }
+
+      /* Portfolio Section */
+      .portfolio {
+        padding: 4rem 0;
+        background-color: #f9f9f9;
+      }
+
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .portfolio-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .portfolio-img {
+        width: 100%;
+        height: 250px;
+        background-color: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: #777;
+      }
+
+      .portfolio-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(58, 110, 165, 0.9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .portfolio-item:hover .portfolio-overlay {
+        opacity: 1;
+      }
+
+      .portfolio-overlay h3 {
+        margin-bottom: 0.5rem;
+      }
+
+      /* Process Section */
+      .process {
+        padding: 4rem 0;
+      }
+
+      .process-steps {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+
+      .process-step {
+        flex: 1 1 250px;
+        max-width: 300px;
+        text-align: center;
+        padding: 0 1.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+      }
+
+      .process-step:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        top: 30px;
+        right: -10px;
+        font-size: 2rem;
+        color: var(--primary-color);
+      }
+
+      .step-number {
+        width: 60px;
+        height: 60px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0 auto 1rem;
+      }
+
+      /* Testimonial Section */
+      .testimonials {
+        padding: 4rem 0;
+        background-color: #f9f9f9;
+      }
+
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .testimonial-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .testimonial-content {
+        font-style: italic;
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .testimonial-content::before {
+        content: '"';
+        font-size: 4rem;
+        color: rgba(58, 110, 165, 0.1);
+        position: absolute;
+        top: -20px;
+        left: -15px;
+      }
+
+      .client-info {
+        display: flex;
+        align-items: center;
+      }
+
+      .client-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #ddd;
+        margin-right: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #777;
+      }
+
+      .client-details h4 {
+        color: var(--secondary-color);
+        margin-bottom: 0.25rem;
+      }
+
+      .client-details p {
+        color: #777;
+        font-size: 0.9rem;
+      }
+
+      /* Contact Section */
+      .contact {
+        padding: 4rem 0;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .contact-info {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .contact-info h3 {
+        color: var(--secondary-color);
+        margin-bottom: 1.5rem;
+      }
+
+      .contact-item {
+        display: flex;
+        margin-bottom: 1rem;
+      }
+
+      .contact-icon {
+        margin-right: 1rem;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+      }
+
+      .contact-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+        font-weight: 500;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: inherit;
+        font-size: 1rem;
+      }
+
+      textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 3rem 0 1.5rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-column h3 {
+        color: var(--accent-color);
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-column ul li a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent-color);
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .nav-toggle {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 70%;
+          height: 100vh;
+          background-color: var(--primary-color);
+          z-index: 100;
+          transition: right 0.3s;
+          padding: 2rem;
+        }
+
+        nav.active {
+          right: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+        }
+
+        nav ul li {
+          margin: 1rem 0;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .process-step:not(:last-child)::after {
+          display: none;
+        }
+
+        .step-number {
+          width: 50px;
+          height: 50px;
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo"><span>Codehxb</span></div>
+          <button class="nav-toggle">☰</button>
+          <nav id="mainNav">
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#services">Leistungen</a></li>
+              <li><a href="#portfolio">Portfolio</a></li>
+              <li><a href="#process">Prozess</a></li>
+              <li><a href="#contact">Kontakt</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container">
+        <h1>Professionelle Webentwicklung für Ihren Erfolg</h1>
+        <p>
+          Wir entwickeln maßgeschneiderte, responsive Websites und
+          Webanwendungen, die Ihr Unternehmen im digitalen Zeitalter
+          voranbringen.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+      <div class="container">
+        <div class="section-title">
+          <h2>Unsere Leistungen</h2>
+        </div>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">💻</div>
+            <h3>Webdesign</h3>
+            <p>
+              Ansprechende und nutzerfreundliche Designs, die Ihre Marke perfekt
+              repräsentieren und für alle Endgeräte optimiert sind.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">⚙️</div>
+            <h3>Webentwicklung</h3>
+            <p>
+              Sauberer, effizienter Code für performante Websites mit modernsten
+              Technologien wie HTML5, CSS3, JavaScript und PHP.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🛒</div>
+            <h3>E-Commerce</h3>
+            <p>
+              Professionelle Online-Shops auf Basis von WooCommerce, Shopify
+              oder individuellen Lösungen für Ihren Verkaufserfolg.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">📱</div>
+            <h3>Responsive Design</h3>
+            <p>
+              Ihre Website passt sich perfekt an alle Bildschirmgrößen an - vom
+              Smartphone über Tablets bis hin zum Desktop.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🔍</div>
+            <h3>SEO-Optimierung</h3>
+            <p>
+              Technische SEO-Optimierung Ihrer Website für bessere Rankings in
+              Suchmaschinen und mehr qualifizierte Besucher.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🔄</div>
+            <h3>Wartung & Support</h3>
+            <p>
+              Zuverlässige Wartung, regelmäßige Updates und schneller
+              technischer Support für Ihre Website.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+      <div class="container">
+        <div class="section-title">
+          <h2>Unsere Arbeiten</h2>
+        </div>
+        <div class="portfolio-grid">
+          <div class="portfolio-item">
+            <div class="portfolio-img">Projekt 1</div>
+            <div class="portfolio-overlay">
+              <h3>Corporate Website</h3>
+              <p>
+                Responsive Business-Website für ein internationales Unternehmen
+              </p>
+            </div>
+          </div>
+          <div class="portfolio-item">
+            <div class="portfolio-img">Projekt 2</div>
+            <div class="portfolio-overlay">
+              <h3>E-Commerce Shop</h3>
+              <p>
+                Online-Shop mit über 1000 Produkten und sicherem Zahlungssystem
+              </p>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+      <div class="container">
+        <div class="section-title">
+          <h2>Unser Prozess</h2>
+        </div>
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <h3>Beratung</h3>
+            <p>
+              Wir analysieren Ihre Anforderungen und beraten Sie zu den besten
+              Lösungen für Ihr Projekt.
+            </p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <h3>Konzeption</h3>
+            <p>
+              Wir erarbeiten ein detailliertes Konzept und erstellen Wireframes
+              für Ihr Feedback.
+            </p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <h3>Design</h3>
+            <p>
+              Wir gestalten das visuelle Erscheinungsbild Ihrer Website nach
+              Ihren Vorstellungen.
+            </p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <h3>Entwicklung</h3>
+            <p>
+              Wir programmieren Ihre Website mit sauberem, strukturiertem Code.
+            </p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">5</div>
+            <h3>Test & Launch</h3>
+            <p>
+              Nach umfangreichen Tests erfolgt der reibungslose Launch Ihrer
+              Website.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="section-title">
+          <h2>Kontakt</h2>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>Kontaktinformationen</h3>
+            <div class="contact-item">
+              <div class="contact-icon">💫</div>
+              <p>Discord zero269</p>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📷</div>
+              <p>Insta codehxb</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">🎥</div>
+                <p>TikTok codehxb</p>
+              </div>
+          </div>
+          
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>Codehxb</h3>
+            <p>
+              Professionelle Webentwicklung mit Leidenschaft und technischer
+              Expertise für Ihren digitalen Erfolg.
+            </p>
+          </div>
+          <div class="footer-column">
+            <h3>Links</h3>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#services">Leistungen</a></li>
+              <li><a href="#portfolio">Portfolio</a></li>
+              <li><a href="#process">Prozess</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Services</h3>
+            <ul>
+              <li><a href="#services">Webdesign</a></li>
+              <li><a href="#services">Webentwicklung</a></li>
+              <li><a href="#services">E-Commerce</a></li>
+              <li><a href="#services">SEO-Optimierung</a></li>
+              <li><a href="#services">Wartung & Support</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Rechtliches</h3>
+            <ul>
+              <li><a href="#">Impressum</a></li>
+              <li><a href="#">Datenschutz</a></li>
+              <li><a href="#">AGB</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 Codehxb. Alle Rechte vorbehalten.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile Navigation Toggle
+      const navToggle = document.querySelector(".nav-toggle");
+      const mainNav = document.getElementById("mainNav");
+
+      navToggle.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+      });
+
+      // Smooth Scrolling for Anchor Links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          if (mainNav.classList.contains("active")) {
+            mainNav.classList.remove("active");
+          }
+
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
